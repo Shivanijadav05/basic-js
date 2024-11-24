@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO</title>
+</head>
+<body>
+   
+    <input id="title" type="text" placeholder="title"></input>
+<br></br>
+    <input id="desc" type="text" placeholder="description"></input>
+    <br></br>
+    <button >Add todo</button>
+    <div id="container"></div>
+    <script>
+        let globalId=0;
+        function markasdone(todoid)
+        {
+            const parent=document.getElementById(todoid);
+            parent.children[2].innerHTML="done!"
+        }
+        function createChild(title,description,id)
+        {
+            const child=document.createElement("div");
+            const firstgrandparent=document.createElement("div")
+            firstgrandparent.innerHTML=title;
+            const secondgrandchild=document.createElement("div");
+            secondgrandchild.innerHTML=description;
+            const thirdchild=document.createElement("button")
+            thirdchild.innerHTML="Mark as Done"
+            thirdchild.setAttribute("onclick",`markasdone(${id})`);
+            child.appendChild(firstgrandparent);
+            child.appendChild(secondgrandchild);
+            child.appendChild(thirdchild);
+            child.setAttribute("id",id);
+            return child;
+        }
+        function updatedomacctostate(state)
+        {
+            const parent=document.getElementById("container");
+            parent.innerHTML="";
+            for(let i=0;i<state.length;i++)
+            {
+            const child=createChild(state[i].title,state[i].description,state[i].id);
+            parent.appendChild(child);
+            }
+        }
+        updatedomacctostate([{
+        title:"go to gym",
+        description:"idk anything",
+        id:1
+        },{
+            title:"hello to yourself",
+            description:"feel happy about yourself",
+            id:2
+        },])
+    </script>
+</body>
+</html>
